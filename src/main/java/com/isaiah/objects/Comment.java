@@ -19,6 +19,52 @@ public class Comment {
 		this.recipeID = recipeID;
 		this.commentRating = commentRating;
 	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
+
+	public String getCommentContent() {
+		return commentContent;
+	}
+
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+
+	public int getCommentID() {
+		return commentID;
+	}
+
+	public void setCommentID(int commentID) {
+		this.commentID = commentID;
+	}
+
+	public int getRecipeID() {
+		return recipeID;
+	}
+
+	public void setRecipeID(int recipeID) {
+		this.recipeID = recipeID;
+	}
+
+	public float getCommentRating() {
+		return commentRating;
+	}
+
+	public void setCommentRating(float commentRating) {
+		this.commentRating = commentRating;
+	}
+
+	@Override
+	public String toString() {
+		return "Comment [author=" + author + ", commentContent=" + commentContent + ", commentID=" + commentID
+				+ ", recipeID=" + recipeID + ", commentRating=" + commentRating + "]";
+	}
 	
 	
 	
