@@ -30,10 +30,12 @@ public class UserService {
 			session.close();
 		}
 		
+		
+		System.out.println(user.toString() + " added to database via UserService");
 	}
 	
 	
-	public static User readUser(int userID) {
+	public static User readUserById(int userID) {
 		User user = null;
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -51,12 +53,18 @@ public class UserService {
 			session.close();
 		}
 		
+		System.out.println("Successfully read and retrieved User ID: " + user.getUserID() + " from DB via Hibernate");
 		
 		return user;
 	}
 	
-	public static void updateUsernameByID(int userID, String updateUsername) {
-		Session session = HC.getSessionFactory().getCurrentSession();
+	public static User readUserByObj(User user){
+		return readUserById(user.getUserID());
+		
+	}
+	
+	public static void updateUsernameById(int userID, String updateUsername) {
+		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
 		try {
@@ -78,8 +86,8 @@ public class UserService {
 		
 	}
 	
-	public static void updatePasswordByID(int userID, String updatePassword) {
-		Session session = HC.getSessionFactory().getCurrentSession();
+	public static void updatePasswordById(int userID, String updatePassword) {
+		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
 		try {
@@ -99,8 +107,8 @@ public class UserService {
 	}
 	
 	
-	public static void updateEmailByID(int userID, String updateEmail) {
-		Session session = HC.getSessionFactory().getCurrentSession();
+	public static void updateEmailById(int userID, String updateEmail) {
+		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
 		try {
@@ -119,7 +127,7 @@ public class UserService {
 	}
 	
 	
-	public void deleteStudentByID(int userID) {
+	public static void deleteUserById(int userID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
@@ -139,12 +147,16 @@ public class UserService {
 		
 	}
 	
+	public static void deleteUserByObj(User user) {
+		deleteUserById(user.getUserID());
+	}
+	
 	
 	
 	/*
 	 * Utility Method
 	 */
-	public static void rollbackTransactionIfNotNull(Transaction t) {
+	private static void rollbackTransactionIfNotNull(Transaction t) {
 		if(t != null) {
 			t.rollback();
 		}

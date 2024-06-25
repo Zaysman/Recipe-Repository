@@ -1,0 +1,53 @@
+package com.isaiah.testClasses;
+
+import com.isaiah.objects.User;
+import com.isaiah.objects.hibernate.*;
+import com.isaiah.services.UserService;
+
+public class TestUserService {
+
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		User testUser = new User();
+		testUser.setUsername("test3");
+		testUser.setPassword("test3");
+		testUser.setEmail("testemail3@gmail.com");
+		
+		//UserService.createUser(testUser); Works
+		
+		testUser = UserService.readUserById(3);
+		System.out.println("testUser:\n"+ testUser); //works
+		
+		
+		String updateUsername = "update", updatePassword = "nottest3", updateEmail = "testemail03@gmail.com";
+//		testUser.setUsername(updateUsername);
+//		testUser.setPassword(updatePassword);
+//		testUser.setEmail(updateEmail);
+		
+		UserService.updateUsernameById(testUser.getUserID(), updateUsername); //works
+		
+		testUser = UserService.readUserById(testUser.getUserID());
+		System.out.println("testUser after updating username:\n"+ testUser); 
+		
+		
+		UserService.updatePasswordById(testUser.getUserID(), updatePassword); //works
+		
+		testUser = UserService.readUserById(testUser.getUserID());
+		System.out.println("testUser after updating password:\n"+ testUser);
+		
+		
+		UserService.updateEmailById(testUser.getUserID(), updateEmail); //works
+		
+		testUser = UserService.readUserById(testUser.getUserID());
+		System.out.println("testUser after updating Email:\n"+ testUser);
+		
+		UserService.deleteUserById(testUser.getUserID()); //works
+		
+		
+	}
+
+}

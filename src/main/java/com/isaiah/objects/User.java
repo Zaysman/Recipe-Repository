@@ -21,7 +21,8 @@ public class User {
 	private String email;
 	
 	public User() {
-		this(-1, "default username", "default password", "default@email.com");
+		//this(-1, "default username", "default password", "default@email.com");
+		//Hibernate requires a No-argument constructor
 	}
 	
 	public User(int userID, String username, String password, String email) {

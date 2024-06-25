@@ -11,7 +11,7 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateClient {
 
-	private static Configuration config = new Configuration().configure(); //I believe this has something to do with the Hibernate annotations
+	private static Configuration config = new Configuration().addPackage("com.isaiah.objects").configure(); //I believe this has something to do with the Hibernate annotations
 	private static StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
 	private static Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 	private static SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
