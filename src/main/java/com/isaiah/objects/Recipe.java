@@ -3,28 +3,74 @@ package com.isaiah.objects;
 import java.util.LinkedList;
 import java.time.Duration;
 
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name = "recipes")
 public class Recipe {
 	
-	private int recipeID, servSize, difflvl;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "recipeID")
+	private int recipeID; 
+	
+	@Column(name = "servSize")
+	private int servSize;
+	
+	@Column(name = "difflvl")
+	private int difflvl;
+	
+	@Column(name = "authorID")
+	private int authorId;
+	
+	@Column(name = "NutritionInfoId")
+	private int nutritionInfoId;
+	
+	@Column(name = "rating")
 	private float rating;
-	private String recipeTitle, recipeDesc, cuisineType;
-	private Duration prepTime, cookTime, totalTime;
-	private User author;
+	
+	@Column(name = "recipeTitle")
+	private String recipeTitle;
+	
+	@Column(name = "recipeDesc")
+	private String recipeDesc;
+	
+	@Column(name = "cuisineType")
+	private String cuisineType;
+	
+	@Column(name = "prepTime")
+	private Duration prepTime;
+	
+	@Column(name = "cookTime")
+	private Duration cookTime;
+	
+	@Column(name = "totalTime")
+	private Duration totalTime;
+	
+	@Transient
 	private NutritionInfo nutritionInfo;
+	
+	@Transient
 	private LinkedList<Ingredient> ingredients;
+	
+	@Transient
 	private LinkedList<Step> prepSteps;
+	
+	@Transient
 	private LinkedList<Comment> comments;
 	
 	
+	//Hibernate requires a no-argument constructor
 	public Recipe() {
-		this(0, 0, 0, 0.0f, "Default Title", "", "", Duration.ZERO, Duration.ZERO, Duration.ZERO, new User(), new NutritionInfo(),
-				new LinkedList<Ingredient>(), new LinkedList<Step>(), new LinkedList<Comment>());
-		
+//		this(0, 0, 0, 0.0f, "Default Title", "", "", Duration.ZERO, Duration.ZERO, Duration.ZERO, new User(), new NutritionInfo(),
+//				new LinkedList<Ingredient>(), new LinkedList<Step>(), new LinkedList<Comment>());
+	
 	}
 	
 	
 	public Recipe(int recipeID, int servSize, int difflvl, float rating, String recipeTitle, String recipeDesc,
-			String cuisineType, Duration prepTime, Duration cookTime, Duration totalTime, User author,
+			String cuisineType, Duration prepTime, Duration cookTime, Duration totalTime, int authorId,
 			NutritionInfo nutritionInfo, LinkedList<Ingredient> ingredients, LinkedList<Step> prepSteps,
 			LinkedList<Comment> comments) {
 		super();
@@ -38,8 +84,8 @@ public class Recipe {
 		this.prepTime = prepTime;
 		this.cookTime = cookTime;
 		this.totalTime = totalTime;
-		this.author = author;
-		this.nutritionInfo = nutritionInfo;
+		this.authorId = authorId;
+		//this.nutritionInfo = nutritionInfo;
 		this.ingredients = ingredients;
 		this.prepSteps = prepSteps;
 		this.comments = comments;
@@ -146,16 +192,24 @@ public class Recipe {
 	}
 
 
-	public User getAuthor() {
-		return author;
+	public int getAuthorId() {
+		return authorId;
 	}
 
 
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 
-
+	public int getNutritionInfoId() {
+		return this.nutritionInfoId;
+	}
+	
+	public void setNutritionInfoId(int nutritionInfoId) {
+		this.nutritionInfoId = nutritionInfoId;
+		
+	}
+	
 	public NutritionInfo getNutritionInfo() {
 		return nutritionInfo;
 	}
@@ -206,14 +260,18 @@ public class Recipe {
 	public void addComment(Comment c) {
 		this.comments.add(c);
 	}
+	
+	public void removeComment(int index) {
+		this.comments.remove(index);
+	}
 
 
 	@Override
 	public String toString() {
 		return "Recipe [recipeID=" + recipeID + ", servSize=" + servSize + ", difflvl=" + difflvl + ", rating=" + rating
 				+ ", recipeTitle=" + recipeTitle + ", recipeDesc=" + recipeDesc + ", cuisineType=" + cuisineType
-				+ ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", totalTime=" + totalTime + ", author="
-				+ author + ", nutritionInfo=" + nutritionInfo + ", ingredients=" + ingredients + ", prepSteps="
+				+ ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", totalTime=" + totalTime + ", authorId="
+				+ authorId + ", nutritionInfo=" + nutritionInfo + ", ingredients=" + ingredients + ", prepSteps="
 				+ prepSteps + ", comments=" + comments + "]";
 	}
 	

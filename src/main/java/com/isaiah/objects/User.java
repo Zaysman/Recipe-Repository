@@ -1,12 +1,28 @@
 package com.isaiah.objects;
 
+import jakarta.persistence.*;
+
+@Entity //Every persistent POJO class is an entity and is declared using the @Entity annotation (at class level)
+@Table(name = "userLogin") //Defines the table the object is supposed to use. Hibernate will use the class name as the table name by default.
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //This means we'll use the database to determine the ID for the object
+	@Column(name = "userID")
 	private int userID;
-	private String username, password, email;
+	
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name = "password")
+	private String password;
+	
+	@Column(name = "email")
+	private String email;
 	
 	public User() {
-		this(-1, "default username", "default password", "default@email.com");
+		//this(-1, "default username", "default password", "default@email.com");
+		//Hibernate requires a No-argument constructor
 	}
 	
 	public User(int userID, String username, String password, String email) {
