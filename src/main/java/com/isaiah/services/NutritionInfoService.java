@@ -49,6 +49,10 @@ public class NutritionInfoService {
 		return nutritionInfo;
 	}
 	
+	public static NutritionInfo readNutritionInfo(NutritionInfo nutritionInfo) {
+		return readNutritionInfoByID(nutritionInfo.getNutritionID());
+	}
+	
 	public static void updateNutritionInfoByID(int nutritionID, NutritionInfo update) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -85,6 +89,11 @@ public class NutritionInfoService {
 		}
 	}
 	
+	public static void updateNutrition(NutritionInfo nutritionInfo) {
+		updateNutritionInfoByID(nutritionInfo.getNutritionID(), nutritionInfo);
+		
+	}
+	
 	public static void deleteNutritionInfoByID(int nutritionID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -103,6 +112,10 @@ public class NutritionInfoService {
 			session.close();
 		}
 		
+	}
+	
+	public static void deleteNutritionInfo(NutritionInfo nutritionInfo) {
+		deleteNutritionInfoByID(nutritionInfo.getNutritionID());
 	}
 	
 	/*

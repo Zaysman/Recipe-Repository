@@ -35,7 +35,7 @@ public class UserService {
 	}
 	
 	
-	public static User readUserById(int userID) {
+	public static User readUserByID(int userID) {
 		User user = null;
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -57,13 +57,13 @@ public class UserService {
 		
 		return user;
 	}
-	
-	public static User readUserByObj(User user){
-		return readUserById(user.getUserID());
+		
+	public static User readUser(User user){
+		return readUserByID(user.getUserID());
 		
 	}
 	
-	public static void updateUsernameById(int userID, String updateUsername) {
+	public static void updateUsernameByID(int userID, String updateUsername) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
@@ -86,7 +86,11 @@ public class UserService {
 		
 	}
 	
-	public static void updatePasswordById(int userID, String updatePassword) {
+	public static void updateUsername(User user) {
+		updateUsernameByID(user.getUserID(), user.getUsername());
+	}
+	
+	public static void updatePasswordByID(int userID, String updatePassword) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
@@ -106,8 +110,12 @@ public class UserService {
 		
 	}
 	
+	public static void updatePassword(User user) {
+		updatePasswordByID(user.getUserID(), user.getPassword());
+	}
 	
-	public static void updateEmailById(int userID, String updateEmail) {
+	
+	public static void updateEmailByID(int userID, String updateEmail) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction transaction = null;
 		
@@ -124,6 +132,11 @@ public class UserService {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void updateEmail(User user) {
+		updateEmailByID(user.getUserID(), user.getEmail());
+		
 	}
 	
 	
@@ -147,7 +160,7 @@ public class UserService {
 		
 	}
 	
-	public static void deleteUserByObj(User user) {
+	public static void deleteUser(User user) {
 		deleteUserById(user.getUserID());
 	}
 	

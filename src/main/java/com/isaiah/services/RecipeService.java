@@ -28,7 +28,7 @@ public class RecipeService {
 		}
 	}
 	
-	public static Recipe readRecipeById(int recipeId) {
+	public static Recipe readRecipeByID(int recipeId) {
 		Recipe recipe = null;
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -49,7 +49,7 @@ public class RecipeService {
 	}
 
 	public static Recipe readRecipe(Recipe recipe) {
-		return readRecipeById(recipe.getRecipeID());
+		return readRecipeByID(recipe.getRecipeID());
 	}
 	
 	public static void updateRecipeById(int recipeId, Recipe updateRecipe) {

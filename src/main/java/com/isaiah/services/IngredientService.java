@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import java.util.LinkedList;
 
 import com.isaiah.objects.Ingredient;
+import com.isaiah.objects.Recipe;
 import com.isaiah.objects.hibernate.HibernateClient;
 
 public class IngredientService {
@@ -50,12 +51,14 @@ public class IngredientService {
 			session.close();
 		}
 		
-		
-		
 		return ingredient;
 	}
 	
-	public static LinkedList<Ingredient> readIngredientsByRecipeId(int recipeId) {
+	public static Ingredient readIngredient(Ingredient ingredient) {
+		return readIngredientByEntryID(ingredient.getEntryID());
+	}
+	
+	public static LinkedList<Ingredient> readIngredientsByRecipeID(int recipeId) {
 		LinkedList<Ingredient> ingredients = null;
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -79,7 +82,11 @@ public class IngredientService {
 		return ingredients;
 	}
 	
-	public static void updateIngredientsByEntryID(int entryID, Ingredient update) {
+	public static LinkedList<Ingredient> readIngredientsByRecipe(Recipe recipe) {
+		return readIngredientsByRecipeID(recipe.getRecipeID());
+	}
+	
+	public static void updateIngredientByEntryID(int entryID, Ingredient update) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
 		
@@ -107,6 +114,12 @@ public class IngredientService {
 		
 	}
 	
+	public static void updateIngredient(Ingredient ingredient) {
+		updateIngredientByEntryID(ingredient.getEntryID(), ingredient);
+	}
+	
+	
+	
 	public static void deleteIngredientByEntryID(int entryID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -126,6 +139,10 @@ public class IngredientService {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void deleteIngredient(Ingredient ingredient) {
+		deleteIngredientByEntryID(ingredient.getEntryID());
 	}
 	
 	public static void deleteIngredientsByRecipeID(int recipeID) {
@@ -148,6 +165,10 @@ public class IngredientService {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void deleteIngredientsByRecipe(Recipe recipe) {
+		deleteIngredientsByRecipeID(recipe.getRecipeID());
 	}
 	
 	

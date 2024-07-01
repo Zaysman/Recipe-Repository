@@ -17,10 +17,14 @@ public class TestUserService {
 		testUser.setPassword("test3");
 		testUser.setEmail("testemail3@gmail.com");
 		
-		//UserService.createUser(testUser); Works
+		System.out.println("test3 before adding to DB:\n" + testUser);
 		
-		testUser = UserService.readUserById(3);
-		System.out.println("testUser:\n"+ testUser); //works
+		UserService.createUser(testUser); //Works
+		
+		System.out.println("test3 after adding to DB:\n" + testUser);
+		
+		//testUser = UserService.readUserById(3);
+		//System.out.println("testUser:\n"+ testUser); //works
 		
 		
 		String updateUsername = "update", updatePassword = "nottest3", updateEmail = "testemail03@gmail.com";
@@ -28,24 +32,24 @@ public class TestUserService {
 //		testUser.setPassword(updatePassword);
 //		testUser.setEmail(updateEmail);
 		
-		UserService.updateUsernameById(testUser.getUserID(), updateUsername); //works
+		//UserService.updateUsernameById(testUser.getUserID(), updateUsername); //works
 		
-		testUser = UserService.readUserById(testUser.getUserID());
+		testUser = UserService.readUserByID(testUser.getUserID());
 		System.out.println("testUser after updating username:\n"+ testUser); 
 		
 		
-		UserService.updatePasswordById(testUser.getUserID(), updatePassword); //works
+		UserService.updatePasswordByID(testUser.getUserID(), updatePassword); //works
 		
-		testUser = UserService.readUserById(testUser.getUserID());
+		testUser = UserService.readUserByID(testUser.getUserID());
 		System.out.println("testUser after updating password:\n"+ testUser);
 		
 		
-		UserService.updateEmailById(testUser.getUserID(), updateEmail); //works
+		UserService.updateEmailByID(testUser.getUserID(), updateEmail); //works
 		
-		testUser = UserService.readUserById(testUser.getUserID());
+		testUser = UserService.readUserByID(testUser.getUserID());
 		System.out.println("testUser after updating Email:\n"+ testUser);
 		
-		UserService.deleteUserById(testUser.getUserID()); //works
+		//UserService.deleteUserById(testUser.getUserID()); //works
 		
 		
 	}

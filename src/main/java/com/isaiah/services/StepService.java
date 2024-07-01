@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import java.util.LinkedList;
 
 import com.isaiah.objects.Step;
+import com.isaiah.objects.Recipe;
 import com.isaiah.objects.hibernate.HibernateClient;
 
 public class StepService {
@@ -53,6 +54,10 @@ public class StepService {
 		return step;
 	}
 	
+	public static Step readStep(Step step) {
+		return readStepByID(step.getStepID());
+	}
+	
 	public static LinkedList<Step> readStepsByRecipeID(int recipeID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -74,6 +79,11 @@ public class StepService {
 		}
 		
 		return steps;
+	}
+	
+	public static LinkedList<Step> readStepsByRecipe(Recipe recipe) {
+		return readStepsByRecipeID(recipe.getRecipeID());
+		
 	}
 	
 	public static void updateStepByID(int stepID, Step update) {
@@ -103,6 +113,10 @@ public class StepService {
 		
 	}
 	
+	public static void updateStep(Step step) {
+		updateStepByID(step.getStepID(), step);
+	}
+	
 	public static void deleteStepByID(int stepID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -121,6 +135,10 @@ public class StepService {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void deleteStep(Step step) {
+		deleteStepByID(step.getStepID());
 	}
 	
 	public static void deleteStepsByRecipeID(int recipeID) {
@@ -142,6 +160,10 @@ public class StepService {
 			session.close();
 		}
 		
+	}
+	
+	public static void deleteStepsByRecipe(Recipe recipe) {
+		deleteStepsByRecipeID(recipe.getRecipeID());
 	}
 
 	/*

@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import java.util.LinkedList;
 
 import com.isaiah.objects.Comment;
+import com.isaiah.objects.Recipe;
 import com.isaiah.objects.hibernate.HibernateClient;
 
 public class CommentService {
@@ -54,6 +55,10 @@ public class CommentService {
 		return comment;
 	}
 	
+	public static Comment readComment(Comment comment) {
+		return readCommentByID(comment.getCommentID());
+	}
+	
 	public static LinkedList<Comment> readCommentsByRecipeID(int recipeID) {
 		LinkedList<Comment> comments = null;
 		Session session = HC.getSessionFactory().openSession();
@@ -73,10 +78,11 @@ public class CommentService {
 			session.close();
 		}
 		
-		
-		
-		
 		return comments;
+	}
+	
+	public static LinkedList<Comment> readCommentsByRecipe(Recipe recipe) {
+		return readCommentsByRecipeID(recipe.getRecipeID());
 	}
 	
 	
@@ -106,6 +112,12 @@ public class CommentService {
 		
 	}
 	
+	public static void updateComment(Comment comment) {
+		updateCommentByID(comment.getCommentID(), comment);
+	}
+	
+	
+	
 	public static void deleteCommentByID(int commentID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
@@ -124,6 +136,10 @@ public class CommentService {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public static void deleteComment(Comment comment) {
+		deleteCommentByID(comment.getCommentID());
 	}
 	
 	public static void deleteCommentsByRecipeID(int recipeID) {
@@ -148,7 +164,9 @@ public class CommentService {
 		
 	}
 	
-	
+	public static void deleteCommentsByRecipe(Recipe recipe) {
+		deleteCommentsByRecipeID(recipe.getRecipeID());
+	}
 	
 	/*
 	 * Utility Method

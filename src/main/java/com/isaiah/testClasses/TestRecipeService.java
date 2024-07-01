@@ -18,7 +18,7 @@ public class TestRecipeService {
 		
 		
 		//Test Create Service
-		User user = UserService.readUserById(1);
+		User user = UserService.readUserByID(1);
 		testRecipe.setAuthorId(user.getUserID());
 		testRecipe.setComments(null);
 		testRecipe.setCookTime(Duration.ofHours(1));
@@ -39,7 +39,7 @@ public class TestRecipeService {
 		
 		
 		//Test ReadService
-		Recipe readRecipe = RecipeService.readRecipeById(2);
+		Recipe readRecipe = RecipeService.readRecipeByID(2);
 		
 		System.out.println("readRecipe:\n" 
 				+ readRecipe+"\n");
@@ -49,7 +49,7 @@ public class TestRecipeService {
 		testRecipe.setRating(4.0f);
 		RecipeService.updateRecipeById(2, testRecipe);
 		
-		readRecipe = RecipeService.readRecipeById(readRecipe.getRecipeID());
+		readRecipe = RecipeService.readRecipeByID(readRecipe.getRecipeID());
 		System.out.println("readRecipe after update:\n" 
 				+ readRecipe); //works
 		

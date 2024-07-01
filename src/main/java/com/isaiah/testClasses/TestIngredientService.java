@@ -26,7 +26,7 @@ public class TestIngredientService {
 		testIngredient.setQuantity(1);
 		testIngredient.setUnit("kilograms");
 		
-		IngredientService.updateIngredientsByEntryID(testIngredient.getEntryID(), testIngredient);
+		IngredientService.updateIngredientByEntryID(testIngredient.getEntryID(), testIngredient);
 		
 		readIngredient = IngredientService.readIngredientByEntryID(1);
 		System.out.println("readIngredient:\n" 
