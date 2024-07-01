@@ -1,8 +1,58 @@
 package com.isaiah.objects;
 
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name = "nutritionInfo")
 public class NutritionInfo {
 	
-	private int nutritionID, recipeID, calories, satFat, transFat, cholesterol, sodium, carbs, protein, vitaminA, vitaminC, vitaminD, calcium, iron, potassium;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //This means we'll use the database to determine the ID for the object
+	@Column(name = "nutritionID")
+	private int nutritionID;
+	
+	@Column(name = "recipeID")
+	private int recipeID;
+	
+	@Column(name = "calories")
+	private int calories;
+	
+	@Column(name = "satFat")
+	private int satFat;
+	
+	@Column(name = "transFat")
+	private int transFat; 
+	
+	@Column(name = "cholesterol")
+	private int cholesterol; 
+	
+	@Column(name = "sodium")
+	private int sodium;
+	
+	@Column(name = "carbs")
+	private int carbs;
+	
+	@Column(name = "protein")
+	private int protein;
+	
+	@Column(name = "vitaminA")
+	private int vitaminA;
+	
+	@Column(name = "vitaminC")
+	private int vitaminC;
+	
+	@Column(name = "vitaminD")
+	private int vitaminD;
+	
+	@Column(name = "calcium")
+	private int calcium;
+	
+	@Column(name = "iron")
+	private int iron; 
+	
+	@Column(name = "potassium")
+	private int potassium;
 
 	public NutritionInfo() {
 		this(-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

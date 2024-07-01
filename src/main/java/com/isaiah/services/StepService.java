@@ -6,42 +6,22 @@ import org.hibernate.query.Query;
 
 import java.util.LinkedList;
 
-import com.isaiah.objects.Ingredient;
+import com.isaiah.objects.Step;
 import com.isaiah.objects.hibernate.HibernateClient;
 
-public class IngredientService {
-	
+public class StepService {
+
 	private static HibernateClient HC;
 
-	public static void createIngredient(Ingredient i) {
+	public static void createStep(Step step) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
-		
+
 		try {
 			t = session.beginTransaction();
-			session.save(i);
+			session.save(step);
 			t.commit();
-			
-			
-		} catch(Exception e) {
-			rollbackTransactionIfNotNull(t);
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		
-	}
-	
-	public static Ingredient readIngredientByEntryID(int entryID) {
-		Ingredient ingredient = null;
-		Session session = HC.getSessionFactory().openSession();
-		Transaction t = null;
-		
-		try {
-			t = session.beginTransaction();
-			ingredient = session.get(Ingredient.class, entryID);
-			
-			
+
 		} catch(Exception e) {
 			rollbackTransactionIfNotNull(t);
 			e.printStackTrace();
@@ -49,22 +29,17 @@ public class IngredientService {
 		} finally {
 			session.close();
 		}
-		
-		
-		
-		return ingredient;
+
 	}
 	
-	public static LinkedList<Ingredient> readIngredientsByRecipeId(int recipeId) {
-		LinkedList<Ingredient> ingredients = null;
+	public static Step readStepByID(int stepID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
+		Step step = null;
 		
 		try {
 			t = session.beginTransaction();
-			Query query = session.createQuery("from Ingredient where recipeID=:recipeID");
-			query.setParameter("recipeId", recipeId);
-			ingredients = (LinkedList<Ingredient>) query.list();
+			step = session.get(Step.class, stepID);
 			
 			
 		} catch(Exception e) {
@@ -75,22 +50,44 @@ public class IngredientService {
 			session.close();
 		}
 		
-		
-		return ingredients;
+		return step;
 	}
 	
-	public static void updateIngredientsByEntryID(int entryID, Ingredient update) {
+	public static LinkedList<Step> readStepsByRecipeID(int recipeID) {
+		Session session = HC.getSessionFactory().openSession();
+		Transaction t = null;
+		LinkedList<Step> steps = null;
+		
+		try {
+			t = session.beginTransaction();
+			Query query = session.createQuery("from steps where recipeID=:recipeID");
+			query.setParameter("recipeID", recipeID);
+			steps = (LinkedList<Step>) query.list();
+			
+			
+		} catch(Exception e) {
+			rollbackTransactionIfNotNull(t);
+			e.printStackTrace();
+			
+		} finally {
+			session.close();
+		}
+		
+		return steps;
+	}
+	
+	public static void updateStepByID(int stepID, Step update) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
 		
 		try {
 			t = session.beginTransaction();
-			Ingredient current = session.get(Ingredient.class, entryID);
-			current.setEntryID(update.getEntryID());
-			current.setName(update.getName());
-			current.setQuantity(update.getQuantity());
+			Step current = session.get(Step.class, stepID);
 			current.setRecipeID(update.getRecipeID());
-			current.setUnit(update.getUnit());
+			current.setStepDesc(update.getStepDesc());
+			current.setStepID(update.getStepID());
+			current.setStepNote(update.getStepNote());
+			current.setStepNum(update.getStepNum());
 			
 			session.update(current);
 			t.commit();
@@ -100,24 +97,22 @@ public class IngredientService {
 			rollbackTransactionIfNotNull(t);
 			e.printStackTrace();
 			
-			
 		} finally {
 			session.close();
 		}
 		
 	}
 	
-	public static void deleteIngredientByEntryID(int entryID) {
+	public static void deleteStepByID(int stepID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
 		
 		try {
 			t = session.beginTransaction();
-			Ingredient i = session.get(Ingredient.class, entryID);
-			session.delete(i);
+			Step step = session.get(Step.class, stepID);
+			session.delete(step);
 			
 			t.commit();
-			
 			
 		} catch(Exception e) {
 			rollbackTransactionIfNotNull(t);
@@ -128,18 +123,16 @@ public class IngredientService {
 		}
 	}
 	
-	public static void deleteIngredientsByRecipeID(int recipeID) {
+	public static void deleteStepsByRecipeID(int recipeID) {
 		Session session = HC.getSessionFactory().openSession();
 		Transaction t = null;
 		
 		try {
 			t = session.beginTransaction();
-			Query query = session.createQuery("delete from ingredients where recipeID=:recipeID");
-			query.setParameter("recipeID", recipeID);
+			Query query = session.createQuery("from steps where recipeID=:recipeID");
+			query.setParameter(recipeID, t);
 			
 			query.executeUpdate();
-			t.commit();
-			
 			
 		} catch(Exception e) {
 			rollbackTransactionIfNotNull(t);
@@ -148,11 +141,9 @@ public class IngredientService {
 		} finally {
 			session.close();
 		}
+		
 	}
-	
-	
-	
-	
+
 	/*
 	 * Utility Method
 	 */
@@ -160,7 +151,8 @@ public class IngredientService {
 		if(t != null) {
 			t.rollback();
 		}
+
+
+
 	}
-	
-	
 }

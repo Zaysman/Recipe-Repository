@@ -1,15 +1,33 @@
 package com.isaiah.objects;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "ingredients")
 public class Ingredient {
 	
-	private String name, unit;
-	private int quantity, recipeID;
+	@Column(name = "name")
+	private String name;
+	
+	@Column(name = "unit")
+	private String unit;
+	
+	@Column(name = "quantity")
+	private int quantity;
+	
+	@Column(name = "recipeID")
+	private int recipeID;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //This means we'll use the database to determine the ID for the object
+	@Column(name = "entryID")
+	private int entryID;
 	
 	public Ingredient() {
-		this("default ingredient name", "miligram", 0, -1);
+		this("default ingredient name", "miligram", 0, -1, -1);
 	}
 	
-	public Ingredient(String name, String unit, int quantity, int recipeID) {
+	public Ingredient(String name, String unit, int quantity, int recipeID, int entryID) {
 		super();
 		this.name = name;
 		this.unit = unit;
@@ -49,11 +67,21 @@ public class Ingredient {
 		this.recipeID = recipeID;
 	}
 
+	public int getEntryID() {
+		return entryID;
+	}
+
+	public void setEntryID(int entryID) {
+		this.entryID = entryID;
+	}
+
 	@Override
 	public String toString() {
 		return "Ingredient [name=" + name + ", unit=" + unit + ", quantity=" + quantity + ", recipeID=" + recipeID
-				+ "]";
+				+ ", entryID=" + entryID + "]";
 	}
+
+	
 	
 	
 	

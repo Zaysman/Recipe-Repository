@@ -1,9 +1,28 @@
 package com.isaiah.objects;
 
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name = "steps")
 public class Step {
 	
-	private int stepID, stepNum, recipeID;
-	private String stepDesc, stepNote;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //This means we'll use the database to determine the ID for the object
+	@Column(name = "stepID")
+	private int stepID;
+	
+	@Column(name = "stepNum")
+	private int stepNum;
+	
+	@Column(name = "recipeID")
+	private int recipeID;
+	
+	@Column(name = "stepDesc")
+	private String stepDesc;
+	
+	@Column(name = "stepNote")
+	private String stepNote;
 	
 	public Step() {
 		this(-1, -1, -1, "", "");

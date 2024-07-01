@@ -1,14 +1,34 @@
 package com.isaiah.objects;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "comments")
 public class Comment {
 
+	@Transient
 	private User author;
+	
+	@Column(name = "commentContent")
 	private String commentContent;
-	private int commentID, recipeID;
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "commentID")
+	private int commentID;
+	
+	@Column(name = "recipeID")
+	private int recipeID;
+	
+	@Column(name = "authorID")
+	private int authorID;
+	
+	@Column(name = "commentRating")
 	private float commentRating;
 	
 	public Comment() {
-		this(new User(), "", -1, -1, 0.0f);
+		this(new User(), "Default Comment", -1, -1, 0.0f);
 	}
 	
 	public Comment(User author, String commentContent, int commentID, int recipeID, float commentRating) {
@@ -26,6 +46,14 @@ public class Comment {
 
 	public void setAuthor(User author) {
 		this.author = author;
+	}
+
+	public int getAuthorID() {
+		return authorID;
+	}
+
+	public void setAuthorID(int authorID) {
+		this.authorID = authorID;
 	}
 
 	public String getCommentContent() {
